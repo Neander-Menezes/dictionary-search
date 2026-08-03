@@ -1,0 +1,12 @@
+- Functional
+Word search the entire english dictionary (~500k words)
+Handle miss-spelling of words
+Return to the user the related words to his search:
+    - Example:
+        "tr" -> "tree", trie..."
+
+Non-Functional
+Users across different regions will use
+at peak times the read requests will be high ~10k reads per second (overshooting), but at downtimes (midnight) will be low
+UI should have some "while user types..." that polls the service and lists the words, shows word and definition items
+

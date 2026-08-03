@@ -1,0 +1,30 @@
+{
+  "name": "dictionary-search",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/gateway/server.js",
+    "dev": "tsx src/gateway/server.ts",
+    "build:start": "npm run build && npm run start",
+    "status": "curl -sf http://127.0.0.1:${PORT:-3010}/health",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1",
+    "@vitest/coverage-v8": "^3.2.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

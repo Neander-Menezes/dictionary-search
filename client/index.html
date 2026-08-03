@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dictionary Search</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1>Dictionary Search</h1>
+      <p class="lede">Type a prefix — results update as you type.</p>
+
+      <label class="search-label" for="q">Search</label>
+      <input
+        id="q"
+        type="search"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="e.g. tr"
+      />
+
+      <p id="status" class="status" aria-live="polite"></p>
+      <ul id="results" class="results"></ul>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

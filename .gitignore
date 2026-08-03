@@ -1,0 +1,14 @@
+# Dependencies & build
+node_modules/
+dist/
+coverage/
+
+# Raw / regenerable data (runtime uses dictionary.json)
+data/vocab.jsonl
+
+# Interview artifact — not needed to run the app
+transcript.vtt
+
+# OS / editor
+.DS_Store
+*.log
