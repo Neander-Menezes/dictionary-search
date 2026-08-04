@@ -12,7 +12,7 @@ You type a prefix (`tr`), the UI debounces and polls the gateway, and the lambda
 
 Interview prompt (simplified): design search for a large English dictionary web app — snappy prefix lookup, handle typos later, scale reads eventually.
 
-**Interview takeaway (diagrams + gaps):** see [docs/INTERVIEW_RETROSPECTIVE.md](./docs/INTERVIEW_RETROSPECTIVE.md).
+**Interview takeaway (my notes + diagrams):** see [docs/INTERVIEW_RETROSPECTIVE.md](./docs/INTERVIEW_RETROSPECTIVE.md).
 
 This repo implements the **MVP slice**:
 
