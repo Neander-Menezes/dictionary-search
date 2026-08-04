@@ -2,7 +2,7 @@
 
 One-page memory aid. Built for recall, not implementation.
 
-**Overall:** mid-level ~~pass with coaching~~ · code MVP strong · whiteboard framing mid−  
+**Overall:** mid-level pass with coaching · code MVP strong · whiteboard framing mid−  
 **Biggest win:** in-memory **prefix trie** (right structure)  
 **Biggest miss:** didn’t split **exact word GET** vs **prefix autocomplete** early
 
@@ -12,8 +12,8 @@ One-page memory aid. Built for recall, not implementation.
 
 ```mermaid
 flowchart LR
-  U[User types] --> C[Client<br/>debounce 200ms]
-  C -->|GET /search?q=| G[Gateway<br/>Express]
+  U[User types] --> C["Client<br/>debounce 200ms"]
+  C -->|"GET /search?q="| G["Gateway<br/>Express"]
   G -->|lambda invoke| L[handleSearch]
   L --> T[In-memory Trie]
   T --> R[words + definitions]
@@ -29,20 +29,21 @@ Right size for interview load (~20 RPS exact → ~200 RPS with keystrokes).
 
 ```mermaid
 flowchart TB
-  subgraph easy ["Easy — exact lookup"]
+  Q{"What does snappy mean?"}
+  Q --> A1
+  Q --> B1
+
+  subgraph easy ["Easy - exact lookup"]
     A1[User finishes a word] --> A2["GET /definitions/:word"]
-    A2 --> A3[Hash / DB index / trie leaf]
-    A3 --> A4[One entry + definition(s)]
+    A2 --> A3["Hash / DB index / trie leaf"]
+    A3 --> A4["One entry + definitions"]
   end
 
-  subgraph hard ["Interesting — autocomplete"]
+  subgraph hard ["Interesting - autocomplete"]
     B1[User typing] --> B2["GET /search?q=prefix"]
-    B2 --> B3[Prefix walk + top-N]
+    B2 --> B3["Prefix walk + top-N"]
     B3 --> B4[Ranked completions]
   end
-
-  Q{What does snappy mean?} --> easy
-  Q --> hard
 ```
 
 **Talk track:** “Exact get is CRUD. Autocomplete is the design problem. Which do you care about?”
@@ -54,24 +55,25 @@ You shipped mostly the **hard** box, but as one `/search`, so the story stayed m
 ## 3. Gaps map (what to practice)
 
 ```mermaid
-quadrantChart
-  title Gaps: interview impact vs how hard to learn
-  x-axis Low effort --> High effort
-  y-axis Low impact --> High impact
-  quadrant-1 Do next on whiteboard
-  quadrant-2 Stretch later
-  quadrant-3 Nice polish
-  quadrant-4 Skip for now
-  Two endpoints: [0.25, 0.92]
-  Cache = trie: [0.22, 0.78]
-  QPS times 10: [0.28, 0.72]
-  Popularity rank: [0.62, 0.70]
-  Did you mean: [0.78, 0.65]
-  Multi sense model: [0.55, 0.45]
-  Geo CDN: [0.70, 0.30]
-```
+flowchart TB
+  subgraph highImpactLowEffort ["Do next on whiteboard"]
+    G1[Two endpoints]
+    G2["Cache = trie"]
+    G3[QPS times 10]
+  end
 
-If the chart doesn’t render, use this table:
+  subgraph highImpactMoreWork ["Stretch later"]
+    G4[Popularity rank]
+    G5[Did you mean]
+    G6[Multi-sense model]
+  end
+
+  subgraph lowerPriority ["Skip for now"]
+    G7[Geo / CDN]
+  end
+
+  highImpactLowEffort --> highImpactMoreWork --> lowerPriority
+```
 
 | Gap | Impact | Effort | One-liner |
 |---|---|---|---|
@@ -89,19 +91,28 @@ If the chart doesn’t render, use this table:
 ## 4. How the interview went (flow)
 
 ```mermaid
-timeline
-  title Session shape (remember the forks)
-  section Open
-    Prompt : 500k words, snappy, maybe misspell
-    You sized load : ~20 RPS — good
-  section Middle
-    Cache discussion : interviewer asked keys and values
-    Autocomplete arrived : update estimate to ~200 RPS
-    Partition idea : letter tables — overkill for RAM-fit data
-  section Close / feedback
-    Name the trie : expected pattern match
-    Split two problems : main coaching point
-    Ranking + misspell : open seams, not blockers
+flowchart LR
+  subgraph open [Open]
+    O1["Prompt: 500k, snappy, misspell"]
+    O2["You sized ~20 RPS - good"]
+    O1 --> O2
+  end
+
+  subgraph middle [Middle]
+    M1["Cache: keys and values?"]
+    M2["Autocomplete → ~200 RPS"]
+    M3["Letter tables = overkill"]
+    M1 --> M2 --> M3
+  end
+
+  subgraph close [Close / feedback]
+    C1["Name the trie"]
+    C2["Split two problems"]
+    C3["Ranking + misspell = seams"]
+    C1 --> C2 --> C3
+  end
+
+  open --> middle --> close
 ```
 
 ---
